@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\Auth;
 class TaskController extends Controller
 {
     public function index() {
-    $tasks = Auth::user()->tasks()->latest()->get();
+    $tasks = Auth::user()->tasks()->latest()->paginate(10); // 10 items per page
     return view('tasks.index', compact('tasks'));
 }
 
     public function create()
     {
+
         return view('tasks.create');
     }
 
@@ -30,6 +31,7 @@ class TaskController extends Controller
         ]);
 
         // Either use this approach:
+        //dd($validated);
         auth()->user()->tasks()->create($validated);
 
         // OR this approach (but not both):

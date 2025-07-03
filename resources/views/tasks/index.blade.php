@@ -1,33 +1,3 @@
-{{-- <x-app-layout>
-    <h2 class="text-2xl font-bold mb-4">My Tasks</h2>
-
-    <a href="{{ route('tasks.create') }}" class="bg-indigo-500 text-white px-4 py-2 rounded">+ Add Task</a>
-
-    <ul class="mt-4 space-y-2">
-        @foreach ($tasks as $task)
-            <li class="p-4 bg-white shadow rounded">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <strong>{{ $task->title }}</strong>
-                        <p class="text-sm text-gray-500">{{ $task->description }}</p>
-                        <p class="text-sm">Priority: {{ $task->priority }} | Status: {{ $task->status }} | Due: {{ $task->due_date ?? 'N/A' }}</p>
-                    </div>
-
-                    <div class="flex space-x-2">
-                        <a href="{{ route('tasks.edit', $task) }}" class="text-blue-600">Edit</a>
-                        <form action="{{ route('tasks.destroy', $task) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-red-600" onclick="return confirm('Delete this task?')">Delete</button>
-                        </form>
-                    </div>
-                </div>
-            </li>
-        @endforeach
-    </ul>
-</x-app-layout> --}}
-
-
 <x-app-layout>
     <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
         <div class="flex justify-between items-center mb-6">
@@ -79,15 +49,17 @@
                                 <div class="flex-1">
                                     <div class="flex items-center">
                                         <h3 class="text-lg font-medium text-gray-900">{{ $task->title }}</h3>
-                                        @if($task->due_date && now()->gt($task->due_date))
+                                        @if($task->due_date && now()->gt(\Carbon\Carbon::parse($task->due_date)))
                                             <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                                                 Overdue
                                             </span>
                                         @endif
                                     </div>
+
                                     @if($task->description)
                                         <p class="mt-1 text-sm text-gray-500">{{ $task->description }}</p>
                                     @endif
+                                    
                                     <div class="mt-2 flex flex-wrap gap-2">
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                                             Priority: {{ ucfirst($task->priority) }}
@@ -97,7 +69,7 @@
                                         </span>
                                         @if($task->due_date)
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                Due: {{ $task->due_date->format('M d, Y') }}
+                                                Due: {{ \Carbon\Carbon::parse($task->due_date)->format('M d, Y') }}
                                             </span>
                                         @endif
                                     </div>
@@ -128,4 +100,3 @@
         @endif
     </div>
 </x-app-layout>
-

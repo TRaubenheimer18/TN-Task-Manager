@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -33,4 +33,27 @@
             </main>
         </div>
     </body>
+</html> --}}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PinkTask</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Add any additional CSS or fonts here -->
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen">
+        @include('partials.header')
+        
+        <div class="container mx-auto px-4 py-6">
+            @yield('content')
+        </div>
+    </div>
+    
+    @stack('scripts')
+</body>
 </html>
