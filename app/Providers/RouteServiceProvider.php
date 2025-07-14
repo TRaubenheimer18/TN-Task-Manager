@@ -19,6 +19,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Register middleware alias here
+        $this->app['router']->aliasMiddleware('role', \App\Http\Middleware\RoleMiddleware::class);
+
         parent::boot();
     }
 

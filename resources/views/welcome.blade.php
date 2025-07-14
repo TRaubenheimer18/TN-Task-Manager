@@ -1,4 +1,4 @@
-{{-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -69,6 +69,16 @@
 
         .login-btn:hover {
             background-color: var(--pink-medium);
+        }
+
+        .register-btn {
+            color: var(--pink-dark);
+            transition: color 0.3s;
+        }
+
+        .register-btn:hover {
+            color: var(--pink-medium);
+            text-decoration: underline;
         }
 
         .demo-accounts {
@@ -187,6 +197,9 @@
                 </div>
 
                 <button type="submit" class="btn login-btn">Sign In</button>
+                <div class="text-center mt-3">
+                    <a href="/register.html" class="btn btn-link text-decoration-none register-btn">Don't have an account? Register</a>
+                </div>
 
                 <div class="demo-accounts">
                     <p>Demo accounts:</p>
@@ -268,9 +281,27 @@
     <script>
         // Mock Users Data
         const mockUsers = [
-            { id: 1, name: 'Admin User', username: 'admin', password: 'admin', role: 'admin' },
-            { id: 2, name: 'Team Member', username: 'member', password: 'member', role: 'member' },
-            { id: 3, name: 'Guest User', username: 'guest', password: 'guest', role: 'guest' }
+            {
+                id: 1,
+                name: 'Admin User',
+                username: 'admin',
+                password: 'admin',
+                role: 'admin'
+            },
+            {
+                id: 2,
+                name: 'Team Member',
+                username: 'member',
+                password: 'member',
+                role: 'member'
+            },
+            {
+                id: 3,
+                name: 'Guest User',
+                username: 'guest',
+                password: 'guest',
+                role: 'guest'
+            }
         ];
 
         // Mock Tasks Data
@@ -494,4 +525,4 @@
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
-</html> --}}
+</html>
