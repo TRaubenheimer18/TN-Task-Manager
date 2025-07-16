@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Validation\ValidationException;
 
 class RegisteredUserController extends Controller
 {
@@ -19,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register'); // Make sure your register view has the role selection field
+        return view('auth.register');
     }
 
     /**
@@ -31,9 +32,9 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'in:admin,team_member,guest'],
+            'role' => ['required', 'in:admin,member,guest'], // Add this
         ]);
 
         $user = User::create([
@@ -41,17 +42,14 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+
+
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect()->route(match ($user->role) {
-            'admin' => 'admin.dashboard',
-            'team_member' => 'team.dashboard',
-            'guest' => 'guest.dashboard',
-            default => 'dashboard',
-        });
+        return redirect(route('dashboard', absolute: false));
     }
 }

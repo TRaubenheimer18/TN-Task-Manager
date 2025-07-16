@@ -1,56 +1,68 @@
 <?php
 
-
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\AuthController;
+use App\Http\Middleware\RedirectIfAuthenticatedByRole;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
-// Show login form
-Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
-Route::get('/login', [AuthController::class, 'showLoginForm']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
-// Registration
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+// Login route: Redirect authenticated users to role-based dashboard
+Route::get('/login', function () {
+    return view('auth.login');
+})->middleware(RedirectIfAuthenticatedByRole::class)->name('login');
 
-// Authenticated routes
-Route::middleware(['auth'])->group(function () {
-    Route::resource('tasks', TaskController::class);
+// Group routes that require auth and email verification
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    // ✅ Dynamic role-based dashboard route
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['verified'])->name('dashboard');
+        $role = Auth::user()->role;
 
+        return match ($role) {
+            'admin' => redirect()->route('admin.dashboard'),
+            'member' => redirect()->route('member.dashboard'),
+            'guest' => redirect()->route('guest.dashboard'),
+            default => abort(403),
+        };
+    })->name('dashboard');
+
+    // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Task routes
+    Route::resource('tasks', TaskController::class);
+    Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus'])
+        ->name('tasks.updateStatus');
 });
 
-// Test routes (optional, for debugging)
-Route::get('/test-db', function() {
-    try {
-        DB::connection()->getPdo();
-        return "Connected successfully to database: " . DB::connection()->getDatabaseName();
-    } catch (\Exception $e) {
-        return "Error connecting to database: " . $e->getMessage();
-    }
+// ✅ Role-specific dashboard views (only needs 'auth', not 'verified')
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('dashboards.admin');
+    })->name('admin.dashboard');
+
+    Route::get('/member/dashboard', function () {
+        return view('dashboards.member');
+    })->name('member.dashboard');
+
+    Route::get('/guest/dashboard', function () {
+        return view('dashboards.guest');
+    })->name('guest.dashboard');
 });
 
-Route::get('/check-tasks', function() {
-    dd(\App\Models\Task::all());
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
+
+Route::get('/send-test-email', function () {
+    Mail::to('test@example.com')->send(new TestMail());
+    return 'Test email sent!';
 });
 
-Route::get('/admin/dashboard', fn () => view('dashboard.admin'))->name('admin.dashboard');
-Route::get('/team/dashboard', fn () => view('dashboard.team'))->name('team.dashboard');
-Route::get('/guest/dashboard', fn () => view('dashboard.guest'))->name('guest.dashboard');
-
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/tasks', [TaskController::class, 'index']);
-Route::post('/tasks', [TaskController::class, 'store']);
-Route::put('/tasks/{id}', [TaskController::class, 'update']);
-Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
-
-
+// ✅ Auth routes like login, register, etc.
 require __DIR__.'/auth.php';

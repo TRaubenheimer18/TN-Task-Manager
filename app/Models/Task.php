@@ -2,30 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    use HasFactory;
-
+    // Add all columns you want mass assignable here
     protected $fillable = [
-        'user_id',
         'title',
         'description',
+        'category',
         'priority',
-        'due_date',
-        'status',
-        'category'
+        'deadline',
+        'assigned_to',
+        'user_id',  // Add this line
+        'status',   // if you have status and want to mass assign it
     ];
 
-    protected $casts = [
-    'due_date' => 'date',
-    // other fields...
-];
+    public function assignedUser()
+{
+    return $this->belongsTo(User::class, 'assigned_to');
+}
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 }
