@@ -1,35 +1,45 @@
 <x-app-layout>
-    <div class="max-w-2xl mx-auto p-4">
-        <h2 class="text-2xl font-bold mb-4">Create New Task</h2>
-        
-        <form action="{{ route('tasks.store') }}" method="POST" class="space-y-4">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-pink-700 leading-tight">➕ Create Task</h2>
+    </x-slot>
+
+    <div class="py-4 px-6">
+        <form method="POST" action="{{ route('tasks.store') }}">
             @csrf
-            
-            <div>
-                <label for="title" class="block font-medium">Title*</label>
-                <input type="text" name="title" id="title" required class="w-full rounded border-gray-300">
-            </div>
-            
-            <div>
-                <label for="description" class="block font-medium">Description</label>
-                <textarea name="description" id="description" class="w-full rounded border-gray-300"></textarea>
-            </div>
-            
-            <div>
-                <label for="priority" class="block font-medium">Priority</label>
-                <select name="priority" id="priority" class="w-full rounded border-gray-300">
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-            </div>
-            
-            <div>
-                <label for="due_date" class="block font-medium">Due Date</label>
-                <input type="date" name="due_date" id="due_date" class="w-full rounded border-gray-300">
-            </div>
-            
-            <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded">Create Task</button>
+
+            <x-input-label for="title" value="Title" />
+            <x-text-input name="title" class="w-full mb-3" required />
+
+            <x-input-label for="description" value="Description" />
+            <textarea name="description" class="form-control mb-3" required></textarea>
+
+            <x-input-label for="category" value="Category" />
+            <select name="category" class="form-select mb-3" required>
+                <option value="development">Development</option>
+                <option value="design">Design</option>
+                <option value="testing">Testing</option>
+                <option value="deployment">Deployment</option>
+            </select>
+
+            <x-input-label for="priority" value="Priority" />
+            <select name="priority" class="form-select mb-3" required>
+                <option value="high">High</option>
+                <option value="medium" selected>Medium</option>
+                <option value="low">Low</option>
+            </select>
+
+            <x-input-label for="deadline" value="Deadline" />
+            <x-text-input type="date" name="deadline" class="w-full mb-3" required />
+
+            <x-input-label for="assigned_to" value="Assign To" />
+            <select name="assigned_to" class="form-select mb-4">
+                <option value="">Unassigned</option>
+                @foreach($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
+
+            <x-primary-button>Create Task</x-primary-button>
         </form>
     </div>
 </x-app-layout>
