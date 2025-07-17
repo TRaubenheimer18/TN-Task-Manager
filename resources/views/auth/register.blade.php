@@ -1,6 +1,14 @@
 <x-guest-layout>
-    <div class="min-h-screen flex flex-col justify-center items-center bg-custom-pink py-6">
-        <div class="w-full max-w-md p-6 rounded-lg">
+    <style>
+            body {
+                background-color: #F4C2C2 !important;
+            }
+
+            
+        </style>
+
+    <div class="min-h-screen flex flex-col justify-center items-center bg-pink-500 py-6">
+        <div class="w-full max-w-md p-6 rounded-lg bg-white shadow-md">
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
@@ -11,7 +19,7 @@
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
-                <!-- Email Address -->
+                <!-- Email -->
                 <div class="mt-4">
                     <x-input-label for="email" :value="__('Email')" />
                     <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
@@ -32,7 +40,7 @@
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
 
-                <!-- Role Selection -->
+                <!-- Role -->
                 <div class="mt-4">
                     <label for="role" class="block font-medium text-sm text-gray-700">Register As</label>
                     <select id="role" name="role" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-pink-500 focus:border-pink-500">
@@ -56,6 +64,8 @@
         </div>
     </div>
 </x-guest-layout>
+
+
 
 
 
