@@ -72,7 +72,7 @@
             </x-responsive-nav-link>
         </div>
 
-        
+
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
