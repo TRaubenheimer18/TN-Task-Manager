@@ -37,7 +37,7 @@
         {{-- Create Task Button below cards --}}
         <div class="flex justify-center">
             <a href="{{ route('tasks.create') }}"
-                class="inline-flex items-center justify-center bg-teal-600 hover:bg-teal-700 text-white text-lg font-semibold rounded-xl px-8 py-4 shadow-lg transition duration-300">
+                class="inline-flex items-center justify-center bg-teal-600 hover:bg-teal-700 text-white text-lg font-semibold rounded-xl px-8 py-4 transition duration-300">
                 ➕ Create New Task
             </a>
         </div>
