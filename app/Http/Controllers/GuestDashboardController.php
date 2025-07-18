@@ -8,7 +8,7 @@ class GuestDashboardController extends Controller
 {
      public function index()
     {
-        // Pass any data you want for admin dashboard here
+        
         return view('dashboards.guest');
     }
 }

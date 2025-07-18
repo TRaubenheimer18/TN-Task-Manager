@@ -32,10 +32,10 @@
 </head>
 <body>
 
-  <!-- Square Container -->
+  
   <div class="square-container">
 
-    <!-- Content Group -->
+
     <div style="width: 100%; max-width: 300px;">
 
       <h1 class="text-3xl font-bold mb-4 text-gray-800">Welcome</h1>
@@ -44,7 +44,7 @@
         Manage your tasks with ease
       </p>
 
-      <!-- Register Button -->
+
       <div class="mb-4 w-full">
         @guest
         <span class="text-sm text-gray-500">Click here to</span>
@@ -55,7 +55,7 @@
         @endguest
       </div>
 
-      <!-- Login Section -->
+
       <div class="flex items-center justify-center gap-2 mb-6">
         @guest
           <span class="text-sm text-gray-500">Existing User?</span>

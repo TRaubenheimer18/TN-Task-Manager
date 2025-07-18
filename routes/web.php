@@ -10,15 +10,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Login route: Redirect authenticated users to role-based dashboard
+
 Route::get('/login', function () {
     return view('auth.login');
 })->middleware(RedirectIfAuthenticatedByRole::class)->name('login');
 
-// Group routes that require auth and email verification
+
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // ✅ Dynamic role-based dashboard route
+
     Route::get('/dashboard', function () {
         $role = Auth::user()->role;
 
@@ -30,18 +30,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
         };
     })->name('dashboard');
 
-    // Profile routes
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Task routes
+
     Route::resource('tasks', TaskController::class);
     Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus'])
         ->name('tasks.updateStatus');
 });
 
-// ✅ Role-specific dashboard views (only needs 'auth', not 'verified')
+
 Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('dashboards.admin');
@@ -64,5 +64,5 @@ Route::get('/send-test-email', function () {
     return 'Test email sent!';
 });
 
-// ✅ Auth routes like login, register, etc.
+
 require __DIR__.'/auth.php';
