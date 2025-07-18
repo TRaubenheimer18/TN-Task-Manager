@@ -8,71 +8,90 @@
   <style>
     body {
       font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
-      background-color: #F4C2C2;
+      background-color: #eac1c1;
       margin: 0;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .square-container {
-      width: 400px;
-      height: 400px;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 420px;
+      padding: 32px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 12px 0;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      transition: background-color 0.2s;
+    }
+
+    .btn-primary {
+      background-color: #1f2937;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #111827;
+    }
+
+    .btn-secondary {
+      background-color: #d48a8a;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background-color: #c97a7a;
     }
   </style>
 </head>
 <body>
 
-  
-  <div class="square-container">
+  <div class="card">
 
+    <h1 class="text-2xl font-bold mb-4 text-gray-800">Welcome</h1>
 
-    <div style="width: 100%; max-width: 300px;">
+    <p class="text-gray-600 mb-6">
+      Get things done one task at a time!
+    </p>
 
-      <h1 class="text-3xl font-bold mb-4 text-gray-800">Welcome</h1>
+    @guest
+      <a href="{{ route('register') }}"
+         class="btn btn-secondary mb-4">
+        Register
+      </a>
 
-      <p class="text-gray-600 mb-8">
-        Manage your tasks with ease
-      </p>
-
-
-      <div class="mb-4 w-full">
-        @guest
-        <span class="text-sm text-gray-500">Click here to</span>
-          <a href="{{ route('register') }}"
-             class="block w-full bg-[#d48a8a] hover:bg-[#c97a7a] text-white py-3 rounded-lg text-lg font-medium transition">
-            Register
-          </a>
-        @endguest
+      <div class="flex justify-center items-center gap-2 text-sm mb-2">
+        <span class="text-gray-500">Already registered?</span>
+        <a href="{{ route('login') }}" class="text-[#6b7280] hover:underline font-medium">
+          Log In
+        </a>
       </div>
+    @else
+      <a href="{{ url('/dashboard') }}"
+         class="btn btn-secondary">
+        Open Dashboard
+      </a>
+    @endguest
 
-
-      <div class="flex items-center justify-center gap-2 mb-6">
-        @guest
-          <span class="text-sm text-gray-500">Existing User?</span>
-          <a href="{{ route('login') }}"
-             class="text-[#d48a8a] hover:underline text-sm font-medium">
-            Log In
-          </a>
-        @else
-          <a href="{{ url('/dashboard') }}"
-             class="block w-full bg-[#d48a8a] hover:bg-[#c97a7a] text-white py-3 rounded-lg text-lg font-medium transition">
-            Open Dashboard
-          </a>
-        @endguest
-      </div>
-
-    </div>
   </div>
 
 </body>
 </html>
+
+
