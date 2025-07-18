@@ -23,7 +23,7 @@
             </form>
         </div>
 
-        {{-- Task List --}}
+        
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             @forelse ($tasks as $task)
                 @include('tasks.partials.card', ['task' => $task])
@@ -34,7 +34,7 @@
             @endforelse
         </div>
 
-        {{-- Create Task Button below cards --}}
+
         <div class="flex justify-center">
             <a href="{{ route('tasks.create') }}"
                 class="inline-flex items-center justify-center bg-teal-600 hover:bg-teal-700 text-white text-lg font-semibold rounded-xl px-8 py-4 transition duration-300">
@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    {{-- JavaScript for Status Update --}}
+
     @push('scripts')
     <script>
         document.querySelectorAll('.save-status-btn').forEach(button => {

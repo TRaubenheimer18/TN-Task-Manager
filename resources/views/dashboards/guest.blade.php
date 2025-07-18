@@ -6,13 +6,13 @@
     <div class="bg-[#F4C2C2] min-h-screen py-8 px-4">
         <div class="max-w-4xl mx-auto">
 
-            {{-- Welcome Section --}}
+
             <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
                 <p class="text-lg mb-4">Welcome, Guest <strong>{{ auth()->user()->name }}</strong>!</p>
                 <p class="text-gray-700">You can create and view temporary tasks below. These tasks are <strong>not saved</strong> to the database and will disappear if you refresh the page. To access full features, upgrade your role.</p>
             </div>
 
-            {{-- Temporary Task Form --}}
+
             <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
                 <h3 class="text-pink-700 text-lg font-semibold mb-4">📝 Create a Temporary Task</h3>
                 <form id="guest-task-form">
@@ -31,7 +31,7 @@
                 </form>
             </div>
 
-            {{-- Temporary Tasks List --}}
+
             <div class="bg-white rounded-2xl shadow-md p-6">
                 <h3 class="text-pink-700 text-lg font-semibold mb-4">📋 Your Temporary Tasks</h3>
                 <p class="text-sm text-gray-600 mb-4">These tasks will disappear once the page is refreshed.</p>
@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    {{-- JavaScript to simulate temporary tasks --}}
+    
     <script>
         const form = document.getElementById('guest-task-form');
         const container = document.getElementById('tasks-container');

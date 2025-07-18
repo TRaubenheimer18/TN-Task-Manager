@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    {{-- Custom background color using inline style --}}
+
     <div class="min-h-screen p-6" style="background-color: #F4C2C2;">
         <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
             <p class="text-gray-800 text-lg mb-6">
@@ -13,7 +13,6 @@
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4">
-                {{-- If team members should not create tasks, remove this button --}}
                 <a href="{{ route('tasks.create') }}"
                    class="inline-flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-gray-800 font-semibold py-2 px-4 rounded-lg transition duration-200 shadow-sm">
                     ➕ Create Task

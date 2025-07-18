@@ -1,1 +1,1 @@
-<h1>This is a test email from PinkTask</h1>
+<h1>This is a test email from TN Task Manager</h1>

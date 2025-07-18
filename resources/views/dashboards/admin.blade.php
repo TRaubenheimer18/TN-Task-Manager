@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    {{-- Custom background color using inline style --}}
+    
     <div class="min-h-screen p-6" style="background-color: #F4C2C2;">
         <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
             <p class="text-gray-800 text-lg mb-6">
