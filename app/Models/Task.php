@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    // Add all columns you want mass assignable here
+
     protected $fillable = [
         'title',
         'description',
@@ -14,8 +14,8 @@ class Task extends Model
         'priority',
         'deadline',
         'assigned_to',
-        'user_id',  // Add this line
-        'status',   // if you have status and want to mass assign it
+        'user_id',  
+        'status',
     ];
 
     public function assignedUser()

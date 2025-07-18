@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
 {
     $user = auth()->user();
@@ -24,11 +22,11 @@ class TaskController extends Controller
         $tasks = Task::where('user_id', $user->id)
                      ->orWhere('assigned_to', $user->id)
                      ->latest()->get();
-    } else { // guest
+    } else {
         $tasks = Task::where('assigned_to', $user->id)->latest()->get();
     }
 
-    // Get all users to assign tasks to
+    
     $users = User::all();
 
     return view('tasks.index', compact('tasks', 'users'));
@@ -44,7 +42,7 @@ class TaskController extends Controller
         $users = User::where('role', '!=', 'guest')->get();
         return view('tasks.create', compact('users'));
     }
- 
+
 
     public function store(Request $request)
     {
